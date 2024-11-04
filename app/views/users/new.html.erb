@@ -1,5 +1,5 @@
 <%# <form action="/users" method="post">
-  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" > %>
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %\>" > %>
   <%# <div>
     <label for="username">User Name</label>
     <input type="text" name="user[username]" id="username">
@@ -15,12 +15,32 @@
   <button type="submit">Sign Up</button>
 </form> %>
 
-<%= form_tag("/users", method: "post") do %>
-  <%= label_tag(:username, "User Name") %>
-  <%= text_field_tag(:username) %>
-  <%= label_tag(:email, "Email") %>
-  <%= email_field_tag(:email) %>
-  <%= label_tag(:password, "Password") %>
-  <%= password_field_tag(:password) %>
-  <%= submit_tag("Sign Up")%>
+<%# <%= form_tag("/users", method: "post") do %\> %>
+  <%# <%= label_tag(:username, "User Name") %\> %>
+  <%# <%= text_field_tag(:username) %\> %>
+  <%# <%= label_tag(:email, "Email") %\> %>
+  <%# <%= email_field_tag(:email) %\> %>
+  <%# <%= label_tag(:password, "Password") %\> %>
+  <%# <%= password_field_tag(:password) %\> %>
+  <%# <%= submit_tag("Sign Up")%\> %>
+<%# <% end %\> %>
+
+<h2>Create New User </h2>
+<%= form_with model: @user do |form| %>
+  <%= form.label :username, "User Name" %>
+  <%= form.text_field :username, placeholder: "johndoe"%>
+  <% @user.errors[:username].each do |error| %>
+    <div><%= error %></div>
+  <% end %>
+  <%= form.label :email, "E-mail" %>
+  <%= form.email_field :email, placeholder: "example@example.com"%>
+  <% @user.errors[:email].each do |error| %>
+    <div><%= error %></div>
+  <% end %>
+  <%= form.label :password, "Password" %>
+  <%= form.password_field :password %>
+  <% @user.errors[:password].each do |error| %>
+    <div><%= error %></div>
+  <% end %>
+  <%= form.submit "Sign Up"%>
 <% end %>
